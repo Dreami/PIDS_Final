@@ -1,0 +1,82 @@
+﻿@model PIDS_Final.RouteConfig
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <style>
+        body {
+            padding:60px;
+            vertical-align: middle;
+        }
+        h1 {
+            text-align: center;
+            position: center;
+        }
+
+        #searchbox {
+            padding: 5px;
+            width : 30%;
+            display: block;
+        }
+
+        #boxAndText {
+            position: center;
+            text-align: center;
+            display: block;
+        }
+
+        input {
+            margin : 0 auto;
+            margin-top: 25px;
+        }
+
+        button {
+            margin : 0 auto;
+            margin-top: 25px;
+            display: block;
+        }
+
+    </style>
+    <meta name="viewport" content="width=device-width" />
+    <title>Index</title>
+</head>
+<body>
+        <div> 
+        <h1>Search engine</h1> 
+    </div>
+    @using (Html.BeginForm("Index", "Home", FormMethod.Get))
+    {
+    <div id="searchDiv">
+        <input id="searchbox" type="text" name="searchWord" placeholder="i.e. Gausch"/>
+        <div id="boxAndText">
+            <label><input id="filterStoplist" type="checkbox" name="filterStoplist" value="true"> With stoplist</label>
+        </div>
+        <button onclick="actuallyFilteringNotSearching()">Search</button>
+    </div>
+    }
+    @{if (ViewBag.wordFound != null) {
+            if (ViewBag.wordFound == false)
+            {
+                <h3>No results.</h3>
+            }
+            else
+            {
+            <h3>Results: </h3>
+            <div id="searchResults">
+                <b>@ViewBag.posting.word found in: </b>
+                <ul class="foundWord">
+                    @foreach (string filename in ViewBag.posting.repeatsPerFile)
+                    {
+                        <li><a href="WordFile/DisplayWord/?filename=@filename">@filename</a></li>
+                    }
+                </ul>
+            </div>
+            }
+    }
+        }
+</body>
+</html>

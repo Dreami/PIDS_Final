@@ -1,0 +1,19 @@
+﻿@model PIDS_Final.RouteConfig
+
+@{
+    string userData = "";
+    if (ViewBag.Display != null)
+    {
+        string filename = ViewBag.display;
+        var dataFile = Server.MapPath("~/App_Data/" + filename);
+        userData = File.ReadAllText(dataFile);
+    }
+}
+
+<!DOCTYPE html>
+<html>
+<body>
+    <h1>Reading Data from a File</h1>
+    {@userData}
+</body>
+</html>
